@@ -45,7 +45,8 @@ jobs:
           compile_compress="-u"
 
           cd build
-          ./build-release.sh -t ${{ matrix.target }} $compile_features $compile_compress
+          # Add -f tls to enable TLS feature
+          ./build-release.sh -t ${{ matrix.target }} -f tls $compile_compress
 
       - name: Upload Github Assets
         uses: softprops/action-gh-release@v1
@@ -85,7 +86,8 @@ jobs:
       - name: Build release
         shell: bash
         run: |
-          ./build/build-host-release.sh -t ${{ matrix.target }}
+          # Add -f tls to enable TLS feature
+          ./build/build-host-release.sh -t ${{ matrix.target }} -f tls
 
       - name: Upload Github Assets
         uses: softprops/action-gh-release@v1
@@ -116,7 +118,8 @@ jobs:
 
       - name: Build release
         run: |
-          pwsh ./build/build-host-release.ps1 -t ${{ matrix.target }}
+          # Add -f tls to enable TLS feature
+          pwsh ./build/build-host-release.ps1 -t ${{ matrix.target }} -f tls
 
       - name: Upload Github Assets
         uses: softprops/action-gh-release@v1
