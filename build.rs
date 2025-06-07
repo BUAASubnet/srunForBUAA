@@ -1,4 +1,4 @@
-use std::{env, net::Ipv4Addr};
+use std::net::Ipv4Addr;
 
 fn main() {
     // 直接将 IP 地址硬编码，不再从环境变量读取
