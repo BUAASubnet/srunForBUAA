@@ -107,25 +107,15 @@ jobs:
         target:
           - x86_64-pc-windows-msvc
           - i686-pc-windows-msvc
-          - aarch64-pc-windows-msvc
     steps:
       - uses: actions/checkout@v4
 
       # Add this step to install nasm
       - name: Install nasm
         uses: ilammy/setup-nasm@v1
-
+        
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
-
-      - name: Install C++ build tools
-        run: |
-          echo "Downloading VS Build Tools using curl..."
-          curl.exe -L -o vs_buildtools.exe "https://aka.ms/vs/17/release/vs_buildtools.exe"
-          echo "Download complete. Starting installation..."
-          start-process -wait -filepath vs_buildtools.exe -ArgumentList '--quiet --wait --norestart --nocache --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.VC.Tools.arm64 --add Microsoft.VisualStudio.Component.Windows11SDK.22621'
-          echo "Installation complete."
-        shell: pwsh
         
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@master
