@@ -115,6 +115,15 @@ jobs:
       - name: Install nasm
         uses: ilammy/setup-nasm@v1
 
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Install C++ build tools
+        run: |
+          Invoke-WebRequest -URI "https://aka.ms/vs/17/release/vs_buildtools.exe" -OutFile "vs_buildtools.exe" -UseBasicParsing
+          start-process -wait -filepath vs_buildtools.exe -ArgumentList '--quiet --wait --norestart --nocache --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.VC.Tools.arm64 --add Microsoft.VisualStudio.Component.Windows11SDK.22621'
+        shell: pwsh
+        
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:
