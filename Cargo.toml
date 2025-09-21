@@ -34,10 +34,7 @@ serde_json = "1.0"
 sha-1 = "0.10"
 ureq = { git = "https://github.com/zu1k/ureq.git", branch = "srun", default-features = false, optional = true }
 socket2 = "0.5"
-ring = { version = "0.17.14", optional = true }
-
-[patch.crates-io]
-ring = { version = "0.17.14" }
+ring = "0.17.14"
 
 [features]
 default = ["ureq"]
