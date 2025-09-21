@@ -86,6 +86,9 @@ jobs:
           toolchain: nightly-2024-04-17
           targets: ${{ matrix.target }}
 
+      - name: Update dependencies
+        run: cargo update
+        
       - name: Build release
         shell: bash
         run: |
@@ -134,7 +137,10 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: nightly-2024-04-17
-
+          
+      - name: Update dependencies
+        run: cargo update
+        
       - name: Build release
         run: |
           # Add -f tls to enable TLS feature
