@@ -33,7 +33,10 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: nightly-2024-04-17
-
+          
+      - name: Update dependencies
+        run: cargo update
+        
       - name: Install cross
         run: cargo install cross
 
