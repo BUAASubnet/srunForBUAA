@@ -1,4 +1,6 @@
-# srun
+# srun for BUAA
+
+**已修改登录验证服务器为BUAA服务器，并加入tls支持，其他同原版**
 
 [![GitHub stars](https://img.shields.io/github/stars/zu1k/srun)](https://github.com/zu1k/srun/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/zu1k/srun)](https://github.com/zu1k/srun/network)
