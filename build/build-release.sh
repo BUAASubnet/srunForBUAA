@@ -61,7 +61,7 @@ function build() {
 
         # FIX: Set new RUSTFLAGS and remove old -Z flag
         RUSTFLAGS="-Zunstable-options -Cpanic=immediate-abort" \
-        cross build -Z build-std=std,panic=immediate-abort \
+        cross build -Z build-std=std,panic_abort \
                     --target "${TARGET}" \
                     --features "${TARGET_FEATURES}" \
                     --release
@@ -70,7 +70,7 @@ function build() {
 
         # FIX: Set new RUSTFLAGS and remove old -Z flag
         RUSTFLAGS="-Zunstable-options -Cpanic=immediate-abort" \
-        cross build -Z build-std=std,panic=immediate-abort \
+        cross build -Z build-std=std,panic_abort \
                     --target "${TARGET}" \
                     --release
     fi
