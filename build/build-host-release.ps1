@@ -29,11 +29,13 @@ if (-not $PSBoundParameters.ContainsKey('TargetTriple')) {
 
 Write-Host "Started building release for ${TargetTriple} ..."
 
+# FIX: Removed the deprecated `-Z build-std-features=panic_immediate_abort` flag.
+# The correct flags will be inherited from the RUSTFLAGS environment variable set in the GitHub Actions workflow.
 if ([string]::IsNullOrEmpty($Features)) {
-    cargo build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --release --target $TargetTriple
+    cargo build -Z build-std=std,panic_abort --release --target $TargetTriple
 }
 else {
-    cargo build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --release --target $TargetTriple --features "${Features}"
+    cargo build -Z build-std=std,panic_abort --release --target $TargetTriple --features "${Features}"
 }
 
 if (!$?) {

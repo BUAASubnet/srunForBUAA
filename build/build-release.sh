@@ -60,7 +60,6 @@ function build() {
         echo "* Building ${TARGET} package ${VERSION} with features \"${TARGET_FEATURES}\" ..."
 
         # FIX: Set new RUSTFLAGS and remove old -Z flag
-        RUSTFLAGS="-Zunstable-options -Cpanic=immediate-abort" \
         cross build -Z build-std=std,panic_abort \
                     --target "${TARGET}" \
                     --features "${TARGET_FEATURES}" \
@@ -69,7 +68,6 @@ function build() {
         echo "* Building ${TARGET} package ${VERSION} ..."
 
         # FIX: Set new RUSTFLAGS and remove old -Z flag
-        RUSTFLAGS="-Zunstable-options -Cpanic=immediate-abort" \
         cross build -Z build-std=std,panic_abort \
                     --target "${TARGET}" \
                     --release

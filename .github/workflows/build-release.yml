@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RUST_BACKTRACE: full
+      # 添加 RUSTFLAGS 来修复 nightly panic 策略变更问题
+      RUSTFLAGS: "-Zunstable-options -Cpanic=immediate-abort"
     strategy:
       matrix:
         target:
@@ -64,6 +66,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       RUST_BACKTRACE: full
+      # 添加 RUSTFLAGS 来修复 nightly panic 策略变更问题
+      RUSTFLAGS: "-Zunstable-options -Cpanic=immediate-abort"
     strategy:
       matrix:
         os: [macos-latest]
@@ -106,6 +110,8 @@ jobs:
   build-windows:
     runs-on: windows-latest
     env:
+      # 在现有 RUSTFLAGS 基础上追加新的标志
+      RUSTFLAGS: "-C target-feature=+crt-static -Zunstable-options -Cpanic=immediate-abort"
       RUST_BACKTRACE: full
     strategy:
       matrix:

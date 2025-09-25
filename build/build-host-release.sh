@@ -24,11 +24,14 @@ HOST_TRIPLE=$(rustc -Vv | grep 'host:' | awk '{print $2}')
 
 echo "Started build release ${VERSION} for ${HOST_TRIPLE} (target: ${BUILD_TARGET}) with features \"${BUILD_FEATURES}\"..."
 
+# FIX: Remove old `-Z` flag and use RUSTFLAGS instead
 if [[ "${BUILD_TARGET}" != "" ]]; then
     if [[ "${BUILD_FEATURES}" != "" ]]; then
-        cargo build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --release --features "${BUILD_FEATURES}" --target "${BUILD_TARGET}"
+        RUSTFLAGS="-Zunstable-options -Cpanic=immediate-abort" \
+        cargo build -Z build-std=std,panic_abort --release --features "${BUILD_FEATURES}" --target "${BUILD_TARGET}"
     else
-        cargo build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --release --target "${BUILD_TARGET}"
+        RUSTFLAGS="-Zunstable-options -Cpanic=immediate-abort" \
+        cargo build -Z build-std=std,panic_abort --release --target "${BUILD_TARGET}"
     fi
 else
     if [[ "${BUILD_FEATURES}" != "" ]]; then
