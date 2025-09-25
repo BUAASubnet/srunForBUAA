@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RUST_BACKTRACE: full
+      # 添加 RUSTFLAGS 来修复 nightly panic 策略变更问题
+      RUSTFLAGS: "-Zunstable-options -Cpanic=immediate-abort"
     strategy:
       matrix:
         target:
@@ -32,7 +34,8 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:
-          toolchain: nightly-2024-04-17
+          # 更新到最新的 nightly
+          toolchain: nightly
           
       - name: Update dependencies
         run: cargo update
@@ -63,9 +66,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       RUST_BACKTRACE: full
+      # 添加 RUSTFLAGS 来修复 nightly panic 策略变更问题
+      RUSTFLAGS: "-Zunstable-options -Cpanic=immediate-abort"
     strategy:
       matrix:
-        # os: [ubuntu-latest, macos-latest]
         os: [macos-latest]
         target:
           - x86_64-apple-darwin
@@ -77,13 +81,13 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install gnu-tar
-          # echo "::add-path::/usr/local/opt/gnu-tar/libexec/gnubin"
           echo "/usr/local/opt/gnu-tar/libexec/gnubin" >> $GITHUB_PATH
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:
-          toolchain: nightly-2024-04-17
+          # 更新到最新的 nightly
+          toolchain: nightly
           targets: ${{ matrix.target }}
 
       - name: Update dependencies
@@ -106,7 +110,8 @@ jobs:
   build-windows:
     runs-on: windows-latest
     env:
-      RUSTFLAGS: "-C target-feature=+crt-static"
+      # 在现有 RUSTFLAGS 基础上追加新的标志
+      RUSTFLAGS: "-C target-feature=+crt-static -Zunstable-options -Cpanic=immediate-abort"
       RUST_BACKTRACE: full
     strategy:
       matrix:
@@ -117,7 +122,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Add this step to install nasm
       - name: Install nasm
         uses: ilammy/setup-nasm@v1
         
@@ -136,7 +140,8 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:
-          toolchain: nightly-2024-04-17
+          # 更新到最新的 nightly
+          toolchain: nightly
           
       - name: Update dependencies
         run: cargo update
