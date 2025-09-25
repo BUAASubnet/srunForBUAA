@@ -35,9 +35,6 @@ sha-1 = "0.10"
 ureq = { git = "https://github.com/zu1k/ureq.git", branch = "srun", default-features = false, optional = true }
 socket2 = "0.5"
 
-[patch.crates-io]
-ring = { git = "https://github.com/briansmith/ring" }
-
 [features]
 default = ["ureq"]
 tls = ["ureq-rust-tls"]
