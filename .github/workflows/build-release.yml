@@ -41,6 +41,8 @@ jobs:
         run: cargo update
         
       - name: Install cross
+        env:
+          RUSTFLAGS: ""
         run: cargo install cross
 
       - name: Build ${{ matrix.target }}
