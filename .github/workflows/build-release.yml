@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RUST_BACKTRACE: full
-      # 添加 RUSTFLAGS 来修复 nightly panic 策略变更问题
-      RUSTFLAGS: "-Zunstable-options -Cpanic=immediate-abort"
     strategy:
       matrix:
         target:

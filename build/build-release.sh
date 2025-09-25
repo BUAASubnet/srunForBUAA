@@ -59,16 +59,18 @@ function build() {
     if [[ "${TARGET_FEATURES}" != "" ]]; then
         echo "* Building ${TARGET} package ${VERSION} with features \"${TARGET_FEATURES}\" ..."
 
+        # FIX: Set new RUSTFLAGS and remove old -Z flag
+        RUSTFLAGS="-Zunstable-options -Cpanic=immediate-abort" \
         cross build -Z build-std=std,panic_abort \
-                    -Z build-std-features=panic_immediate_abort \
                     --target "${TARGET}" \
                     --features "${TARGET_FEATURES}" \
                     --release
     else
         echo "* Building ${TARGET} package ${VERSION} ..."
 
+        # FIX: Set new RUSTFLAGS and remove old -Z flag
+        RUSTFLAGS="-Zunstable-options -Cpanic=immediate-abort" \
         cross build -Z build-std=std,panic_abort \
-                    -Z build-std-features=panic_immediate_abort \
                     --target "${TARGET}" \
                     --release
     fi
